@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14 | Artisan Café & Boulangerie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3E2723;
+            --secondary-color: #D7CCC8;
+            --accent-gold: #C5A267;
+            --text-dark: #2A201C;
+            --text-light: #FFFCF5;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background-color: var(--text-light);
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Premium Navigation */
+        .nav-main {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .branding {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 300;
+            transition: var(--transition);
+        }
+
+        .nav-item:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: var(--transition);
+        }
+
+        .nav-item:hover:after {
+            width: 100%;
+        }
+
+        /* Menu Sections */
+        .menu-section {
+            padding: 8rem 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--accent-gold);
+        }
+
+        /* Gourmet Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-media {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .menu-card:hover .card-media img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.8rem;
+        }
+
+        .dish-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .dish-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1.2rem;
+            min-height: 60px;
+        }
+
+        .dish-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .dietary {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dietary span {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background: #f5f5f5;
+            text-transform: uppercase;
+        }
+
+        /* Breakfast Page Specific Styles */
+        .breakfast-highlight {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-gold);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .seasonal-signature {
+            border: 2px solid var(--accent-gold);
+            position: relative;
+        }
+
+        .seasonal-signature:before {
+            content: 'Chef\'s Seasonal Pick';
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            padding: 0 1rem;
+            white-space: nowrap;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-main">
+        <div class="nav-container">
+            <div class="branding">14</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-item">Home</a>
+                <a href="#breakfast" class="nav-item">Breakfast</a>
+                <a href="#menu" class="nav-item">Menu</a>
+                <a href="#contact" class="nav-item">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breakfast Page -->
+    <section id="breakfast" class="menu-section">
+        <div class="section-header">
+            <h2 class="section-title">Morning Rituals</h2>
+            <p>Daily baked goods & seasonal specials</p>
+        </div>
+        
+        <div class="menu-grid">
+            <!-- Breakfast Item 1 -->
+            <article class="menu-card seasonal-signature">
+                <div class="card-media">
+                    <img src="images/croissant-assortment.jpg" alt="Artisan Croissants">
+                </div>
+                <div class="card-content">
+                    <h3 class="dish-title">French Croissant Trilogy</h3>
+                    <p class="dish-description">Traditional butter, almond cream, and pain au chocolat served with house-made seasonal preserves</p>
+                    <div class="dish-meta">
+                        <span class="price">$18.50</span>
+                        <div class="dietary">
+                            <span>V</span>
+                            <span>GFO</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Add 4 more breakfast items following same structure -->
+            <!-- ... -->
+            
+        </div>
+    </section>
+
+    <!-- Main Menu Page -->
+    <section id="menu" class="menu-section">
+        <div class="section-header">
+            <h2 class="section-title">The 14 Collection</h2>
+            <p>Crafted with locally-sourced ingredients</p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- Menu Item 1 -->
+            <article class="menu-card">
+                <div class="card-media">
+                    <img src="pizza">
+                    <div class="breakfast-highlight">Bread of the Day</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="dish-title">48-Hour Sourdough</h3>
+                    <p class="dish-description">Traditional San Francisco-style sourdough with wild yeast culture, served with cultured butter</p>
+                    <div class="dish-meta">
+                        <span class="price">$14.00</span>
+                        <div class="dietary">
+                            <span>V</span>
+                            <span>DF</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Add 5 more menu items following same structure -->
+            <!-- ... -->
+            
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <!-- ... -->
+
+    <script>
+        // Smooth scroll and page transition logic
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Intersection Observer for animation triggers
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.menu-card').forEach((card) => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
